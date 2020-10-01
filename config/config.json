@@ -1,0 +1,31 @@
+{
+  "development": {
+    "database": {
+      "url": "mongodb://mongo-fastify-api:27017/mongo_playground",
+      "options": {
+        "useNewUrlParser": true
+      }
+    }
+  },
+  "test": {
+    "database": {
+      "url": "mongodb://localhost:27018/mongoose_test",
+      "options": {
+        "useNewUrlParser": true
+      }
+    }
+  },
+  "production": {
+    "database": {
+      "protocol": "mongodb",
+      "username": "root",
+      "password": "password",
+      "name": "database_production",
+      "host": "mongo-fastify-api",
+      "port": "27017",
+      "options": {
+        "useNewUrlParser": true
+      }
+    }
+  }
+}
