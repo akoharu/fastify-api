@@ -1,6 +1,5 @@
 'use strict';
 const mongoose_delete = require('mongoose-delete');
-const _ = require('lodash');
 module.exports = mongoose => {
   const newSchema = new mongoose.Schema({
     name: {
