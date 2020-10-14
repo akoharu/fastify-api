@@ -2,7 +2,7 @@ const model = require('../models').models.User;
 const Boom = require('boom');
 let response = require('../config/response');
 
-const postSignup = async (req, res) => {
+const signup = async (req, res) => {
     const { username, password } = req.body;
     try {
         const existingUser = await model.findOne({ username: username.toLowerCase() });
@@ -11,20 +11,17 @@ const postSignup = async (req, res) => {
             res.send(new Error('User already exists'));
             return;
         }
-        const user = new model({
-            username,
-            password,
-        });
+        const user = new model(req.body);
         const newUser = await user.save();
         const { _id } = newUser;
         const token = await res.jwtSign({ _id }, { expiresIn: process.env.JWT_EXP });
-        return response.ok({token}, 'Register Success', res)
+        return response.singleData({token}, 'Register Success', res)
     } catch (error) {
         throw Boom.boomify(error);        
     }
 };
 
-const postLogin = async (req, res) => {
+const login = async (req, res) => {
     const { username, password } = req.body;
     try {
         const user = await model.findOne({ username: username.toLowerCase() }).exec();
@@ -35,7 +32,7 @@ const postLogin = async (req, res) => {
         if (isMatch) {
             const { id } = user;
             const token = await res.jwtSign({ id }, { expiresIn: process.env.JWT_EXP });
-            return response.ok({token}, `Welcomeback ${username} !`, res) 
+            return response.singleData({token}, `Welcomeback ${username} !`, res) 
         }
         return response.badRequest({}, `Invalid Password!`, res)
     } catch (err) {
@@ -43,6 +40,6 @@ const postLogin = async (req, res) => {
     }
 };
 module.exports = {
-    postSignup,
-    postLogin
+    signup,
+    login
 }

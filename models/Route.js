@@ -3,13 +3,19 @@ const mongoose_delete = require('mongoose-delete');
 
 module.exports = mongoose => {
   const newSchema = new mongoose.Schema({
+    server: {
+      type: String
+    },
     name: {
       type: String
     },
-    phone: {
+    endpoint: {
       type: String
     },
-    address: {
+    method: {
+      type: String
+    },
+    description: {
       type: String
     }
   }, {
@@ -19,6 +25,6 @@ module.exports = mongoose => {
     }
   });
   newSchema.plugin(mongoose_delete, { deletedAt : true, overrideMethods: true});
-  const Company = mongoose.model('Company', newSchema);
-  return Company;
+  const Route = mongoose.model('Route', newSchema);
+  return Route;
 };

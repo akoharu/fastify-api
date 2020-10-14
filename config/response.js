@@ -1,4 +1,4 @@
-async function ok (values, message, reply) {
+async function singleData (values, message, reply) {
     return reply
     .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')
@@ -21,5 +21,5 @@ async function badRequest (values, message, reply) {
 }
 
 module.exports = {
-    ok, badRequest
+    singleData, badRequest
 };

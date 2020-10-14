@@ -1,4 +1,4 @@
-const model = require('../models').models.Company;
+const model = require('../models').models.Role;
 const Boom = require('boom');
 const response = require('../config/response');
 const {MongooseQueryParser} = require('mongoose-query-parser');
@@ -20,6 +20,7 @@ const find = async (req, res) => {
         throw Boom.boomify(error);
     }
 }
+
 const count = async (req, res) => {
     const url = req.url.split('?').length > 1 ? req.url.split('?')[1] : ''; 
     const parsed = parser.parse(url);
@@ -61,6 +62,7 @@ const countDeleted = async (req, res) => {
         throw Boom.boomify(error);
     }
 }
+
 const findOne = async (req, res) => {
     let id = req.params;
     const url = req.url.split('?').length > 1 ? req.url.split('?')[1] : ''; 
@@ -104,6 +106,7 @@ const destroy = async (req, res) => {
         throw Boom.boomify(error);
     }
 }
+
 const restore = async (req, res) => {
     const id = req.params;
     try {

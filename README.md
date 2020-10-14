@@ -1,6 +1,6 @@
 # Fastify Rest API
 
-Simple rest api using fastify, knex and objection
+Simple rest api using fastify and mongoose
 
 ## Getting Started
 
@@ -29,3 +29,7 @@ Setup the dotenv file to match your server settings
 ```
 rename .env.example to .env file and change the values
 ```
+
+### Mongoosejs-cli
+
+Source : https://github.com/waptik/mongoose-cli

@@ -1,7 +1,7 @@
 {
   "development": {
     "database": {
-      "url": "mongodb://mongo-fastify-api:27017/mongo_playground",
+      "url": "mongodb://localhost:27017/mongo_playground",
       "options": {
         "useNewUrlParser": true
       }
@@ -9,7 +9,7 @@
   },
   "test": {
     "database": {
-      "url": "mongodb://localhost:27018/mongoose_test",
+      "url": "mongodb://localhost:27017/mongo_playground",
       "options": {
         "useNewUrlParser": true
       }

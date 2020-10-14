@@ -1,13 +1,18 @@
 'use strict';
 const bcrypt = require('bcrypt-nodejs');
+const mongoose_delete = require('mongoose-delete');
 
 module.exports = mongoose => {
   const newSchema = new mongoose.Schema({
     username: {
-      type: String
+      type: String,
     },
     password: {
-      type: String
+      type: String,
+    },
+    role: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref:'Role'
     }
   }, {
     timestamps: {
@@ -42,7 +47,8 @@ module.exports = mongoose => {
       });
     });
   };
-
+  
+  newSchema.plugin(mongoose_delete, { deletedAt : true, overrideMethods: 'all'});
   const User = mongoose.model('User', newSchema);
   return User;
 };

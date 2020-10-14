@@ -1,8 +1,9 @@
-const model = require('../models').models.Company;
+const model = require('../models').models.User;
 const Boom = require('boom');
-const response = require('../config/response');
+let response = require('../config/response');
 const {MongooseQueryParser} = require('mongoose-query-parser');
 const parser = new MongooseQueryParser();
+const bcrypt = require('bcrypt-nodejs');
 
 const find = async (req, res) => {
     const url = req.url.split('?').length > 1 ? req.url.split('?')[1] : ''; 
@@ -75,25 +76,38 @@ const findOne = async (req, res) => {
         throw Boom.boomify(error);
     }
 }
-
-const create = async (req, res) => {
-    try {
-        const data = new model(req.body);
-        const newData = await data.save();
-        return response.singleData(newData, 'Success', res)
-    } catch (error) {
-        throw Boom.boomify(error);
-    }
-}
 const update = async (req, res) => {
     const id = req.params;
+    const { username, password } = req.body;
     try {
-        let newData = await model.findOneAndUpdate(id, req.body, {upsert: true});
-        return response.singleData(newData, 'Success', res);   
+        if (username) {
+            const existingUser = await model.findOne({ username: username.toLowerCase() });
+            if (existingUser) {
+                res.code(409);
+                res.send(new Error('User already exists'));
+                return;
+            }  
+        }
+        let newData;
+
+        if (password) {
+            bcrypt.genSalt(10, (err, salt) => {
+                if (err) {throw Boom.boomify(err)}
+                bcrypt.hash(req.body.password, salt, null, async (err, hash) => {
+                  if (err) { throw Boom.boomify(err)}
+                  req.body.password = hash;
+                  newData = await model.findOneAndUpdate(id, req.body, {upsert: true});
+                  return response.singleData(newData, 'Success', res);     
+                });
+              });            
+        } else {
+            newData = await model.findOneAndUpdate(id, req.body, {upsert: true});
+            return response.singleData(newData, 'Success', res);     
+        }
     } catch (error) {
-        throw Boom.boomify(error);
+        throw Boom.boomify(error);        
     }
-}
+};
 
 const destroy = async (req, res) => {
     const id = req.params;
@@ -115,5 +129,5 @@ const restore = async (req, res) => {
 }
 
 module.exports = {
-    find, findOne, create, update, destroy, findDeleted, count, countDeleted, restore
+    find, findOne, update, destroy, findDeleted, count, countDeleted, restore
 }

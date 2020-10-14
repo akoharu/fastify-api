@@ -1,16 +1,25 @@
 'use strict';
 const mongoose_delete = require('mongoose-delete');
-
+const _ = require('lodash');
 module.exports = mongoose => {
   const newSchema = new mongoose.Schema({
     name: {
       type: String
     },
-    phone: {
+    type: {
       type: String
     },
-    address: {
+    description: {
       type: String
+    },
+    status: {
+      type: String
+    },
+    routes: {
+      type: Array
+    },
+    menus: {
+      type: Array
     }
   }, {
     timestamps: {
@@ -19,6 +28,6 @@ module.exports = mongoose => {
     }
   });
   newSchema.plugin(mongoose_delete, { deletedAt : true, overrideMethods: true});
-  const Company = mongoose.model('Company', newSchema);
-  return Company;
+  const Role = mongoose.model('Role', newSchema);
+  return Role;
 };
