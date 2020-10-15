@@ -11,6 +11,10 @@ module.exports = fp(async function (fastify, opts, done) {
             const token = request.headers.authorization.split('Bearer ')[1];
             const decodedToken = fastify.jwt.decode(token);
             let user = await model.findOne({_id: decodedToken.id}).populate({ path: 'role', select: 'type _id'});
+            if (user.status !== 'active') {
+                reply.code(403);
+                throw Boom.forbidden(`Your account isn't active`);
+            }
             request.state = {
                 user: user
             }

@@ -22,7 +22,6 @@ module.exports = async function (fastify, opts) {
   })
 
   let basicRules = await permissionRuleServie.permissionRules(`?server=${process.env.SERVER}`);
-  console.log(basicRules);
   // const basicRules = {
   //   user: {
   //     can: [
@@ -45,11 +44,12 @@ module.exports = async function (fastify, opts) {
 
   // It exposes rbac to fastify instance fastify.rbac which you may use to check/add/remove roles and permissions.
   fastify.register(rbacPlugin, {roles: basicRules});
-  
+
   // This loads all plugins defined in routes
   // define your routes in one of these
   fastify.register(AutoLoad, {
     dir: path.join(__dirname, 'routes'),
     options: Object.assign({}, opts)
   })
+  
 }

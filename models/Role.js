@@ -10,9 +10,6 @@ module.exports = mongoose => {
     },
     description: {
       type: String
-    },
-    status: {
-      type: String
     }
   }, {
     timestamps: {

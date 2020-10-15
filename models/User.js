@@ -4,15 +4,40 @@ const mongoose_delete = require('mongoose-delete');
 
 module.exports = mongoose => {
   const newSchema = new mongoose.Schema({
-    username: {
+    firstName: {
       type: String,
     },
-    password: {
+    lastName: {
       type: String,
+    },
+    username: {
+      type: String,
+      unique: true
+    },
+    email: {
+      type: String,
+      unique: true
+    },
+    password: {
+      type: String
     },
     role: {
       type: mongoose.Schema.Types.ObjectId,
       ref:'Role'
+    },
+    status: {
+      type: String,
+      enum: ['active', 'inactive', 'blocked'],
+      default: 'active'
+    },
+    tokenReset: {
+      type: String,
+    },
+    timezone: {
+      type: String,
+    },
+    language: {
+      type: String
     }
   }, {
     timestamps: {
