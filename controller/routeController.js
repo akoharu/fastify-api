@@ -1,9 +1,9 @@
-const model = require('../models').models.Company;
+const model = require('../models').models.Route;
 const Boom = require('boom');
 const response = require('../config/response');
 const {MongooseQueryParser} = require('mongoose-query-parser');
 const parser = new MongooseQueryParser();
-
+const permissionRuleServie = require('../services/routeService');
 const find = async (req, res) => {
     const url = req.url.split('?').length > 1 ? req.url.split('?')[1] : ''; 
     const parsed = parser.parse(url);
@@ -115,6 +115,15 @@ const restore = async (req, res) => {
     }
 }
 
+const permissionRules = async(req, res) => {
+    try {
+        let data = await permissionRuleServie.permissionRules(req.url);
+        return response.singleData(data, 'Success', res);
+    } catch (error) {
+        throw Boom.boomify(error);
+    }
+}
+
 module.exports = {
-    find, findOne, create, update, destroy, findDeleted, count, countDeleted, restore
+    find, findOne, create, update, destroy, findDeleted, count, countDeleted, restore, permissionRules
 }

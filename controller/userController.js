@@ -6,6 +6,7 @@ const parser = new MongooseQueryParser();
 const bcrypt = require('bcrypt-nodejs');
 
 const find = async (req, res) => {
+    console.log(req.state);
     const url = req.url.split('?').length > 1 ? req.url.split('?')[1] : ''; 
     const parsed = parser.parse(url);
     let limit = 10, skip = 0, filter = {}, select = {}, populate = [];
@@ -111,8 +112,9 @@ const update = async (req, res) => {
 
 const destroy = async (req, res) => {
     const id = req.params;
+    const user = req.state.user;
     try {
-        let data = await model.delete(id);
+        let data = await model.delete(id, user._id);
         return response.singleData(data, 'Success', res)
     } catch (error) {
         throw Boom.boomify(error);

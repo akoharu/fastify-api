@@ -13,12 +13,6 @@ module.exports = mongoose => {
     },
     status: {
       type: String
-    },
-    routes: {
-      type: Array
-    },
-    menus: {
-      type: Array
     }
   }, {
     timestamps: {
@@ -26,7 +20,7 @@ module.exports = mongoose => {
       updatedAt: 'updated_at'
     }
   });
-  newSchema.plugin(mongoose_delete, { deletedAt : true, overrideMethods: true});
+  newSchema.plugin(mongoose_delete, { deletedAt : true, deletedBy : true, overrideMethods: true});
   const Role = mongoose.model('Role', newSchema);
   return Role;
 };

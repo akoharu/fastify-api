@@ -1,4 +1,4 @@
-const controller = require('../../../controller/companyController');
+const controller = require('../../../controller/routeController');
 module.exports = async function (fastify, opts) {
     fastify.post('/', {preValidation : [fastify.authenticate]}, controller.create);
     fastify.get('/', {preValidation : [fastify.authenticate]}, controller.find);
@@ -9,4 +9,5 @@ module.exports = async function (fastify, opts) {
     fastify.get('/count', {preValidation : [fastify.authenticate]}, controller.count);
     fastify.get('/deleted', {preValidation : [fastify.authenticate]}, controller.findDeleted);
     fastify.get('/count-deleted', {preValidation : [fastify.authenticate]}, controller.countDeleted);
+    fastify.get('/permissions', {preValidation : [fastify.authenticate]}, controller.permissionRules);
 }

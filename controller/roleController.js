@@ -99,8 +99,9 @@ const update = async (req, res) => {
 
 const destroy = async (req, res) => {
     const id = req.params;
+    const user = req.state.user;
     try {
-        let data = await model.delete(id);
+        let data = await model.delete(id, user._id);
         return response.singleData(data, 'Success', res)
     } catch (error) {
         throw Boom.boomify(error);

@@ -48,7 +48,7 @@ module.exports = mongoose => {
     });
   };
   
-  newSchema.plugin(mongoose_delete, { deletedAt : true, overrideMethods: 'all'});
+  newSchema.plugin(mongoose_delete, { deletedAt : true, deletedBy : true, overrideMethods: 'all'});
   const User = mongoose.model('User', newSchema);
   return User;
 };

@@ -4,7 +4,7 @@ const path = require('path')
 const AutoLoad = require('fastify-autoload')
 const fastifyJWT = require('fastify-jwt');
 const rbacPlugin = require('fastify-rbac');
-// const model = require('./models').models.Company;
+const permissionRuleServie = require('./services/routeService');
 
 module.exports = async function (fastify, opts) {
   // Place here your custom code!
@@ -21,26 +21,27 @@ module.exports = async function (fastify, opts) {
     options: Object.assign({}, opts)
   })
 
-  // let companies = await model.find();
-  const basicRules = {
-    user: {
-      can: [
-        {name: '/v1/', operation: 'GET'},
-        {name: '/v1/user', operation: 'GET'},
-      ],
-    },
-    admin: {
-      can: [
-        {name: '*', operation: 'POST'},
-        {name: '*', operation: 'GET'},
-        {name: '*', operation: 'PUT'},
-        {name: '*', operation: 'DELETE'},
-      ],
-    },
-    superAdmin: {
-      can: ['*'],
-    },
-  };
+  let basicRules = await permissionRuleServie.permissionRules(`?server=${process.env.SERVER}`);
+  console.log(basicRules);
+  // const basicRules = {
+  //   user: {
+  //     can: [
+  //       {name: '/v1/', operation: 'GET'},
+  //       {name: '/v1/user', operation: 'GET'},
+  //     ],
+  //   },
+  //   admin: {
+  //     can: [
+  //       {name: '*', operation: 'POST'},
+  //       {name: '*', operation: 'GET'},
+  //       {name: '*', operation: 'PUT'},
+  //       {name: '*', operation: 'DELETE'},
+  //     ],
+  //   },
+  //   superAdmin: {
+  //     can: ['*'],
+  //   },
+  // };
 
   // It exposes rbac to fastify instance fastify.rbac which you may use to check/add/remove roles and permissions.
   fastify.register(rbacPlugin, {roles: basicRules});

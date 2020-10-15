@@ -11,6 +11,9 @@ module.exports = fp(async function (fastify, opts, done) {
             const token = request.headers.authorization.split('Bearer ')[1];
             const decodedToken = fastify.jwt.decode(token);
             let user = await model.findOne({_id: decodedToken.id}).populate({ path: 'role', select: 'type _id'});
+            request.state = {
+                user: user
+            }
             let checkRBAC = await fastify.rbac.can(user.role.type, url.split('?')[0], method);
             if (!checkRBAC) {
                 reply.code(403);

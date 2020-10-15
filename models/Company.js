@@ -18,7 +18,7 @@ module.exports = mongoose => {
       updatedAt: 'updated_at'
     }
   });
-  newSchema.plugin(mongoose_delete, { deletedAt : true, overrideMethods: true});
+  newSchema.plugin(mongoose_delete, { deletedAt : true, deletedBy : true, overrideMethods: true});
   const Company = mongoose.model('Company', newSchema);
   return Company;
 };

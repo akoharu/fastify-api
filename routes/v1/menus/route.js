@@ -1,4 +1,4 @@
-const controller = require('../../../controller/companyController');
+const controller = require('../../../controller/menuController');
 module.exports = async function (fastify, opts) {
     fastify.post('/', {preValidation : [fastify.authenticate]}, controller.create);
     fastify.get('/', {preValidation : [fastify.authenticate]}, controller.find);

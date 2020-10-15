@@ -1,10 +1,11 @@
-const model = require('../models').models.Company;
+const model = require('../models').models.Menu;
 const Boom = require('boom');
 const response = require('../config/response');
 const {MongooseQueryParser} = require('mongoose-query-parser');
 const parser = new MongooseQueryParser();
 
 const find = async (req, res) => {
+    const user = req.state.user;
     const url = req.url.split('?').length > 1 ? req.url.split('?')[1] : ''; 
     const parsed = parser.parse(url);
     let limit = 10, skip = 0, filter = {}, select = {}, populate = [];
@@ -14,7 +15,40 @@ const find = async (req, res) => {
     if (parsed.populate) populate = parsed.populate;
     if (parsed.select) select = parsed.select;
     try {
-        let data = await model.find(filter).select(select).populate(populate).limit(limit).skip(skip);
+        // let data = await model.find(filter).select(select).populate(populate).limit(limit).skip(skip);
+        let data = await model.aggregate([
+            {
+                $match: {...filter,
+                    parent: null,
+                    role: user.role._id
+                }
+            },
+            {
+                $lookup: {
+                    from: "routes",
+                    localField: "permissions",
+                    foreignField: "_id",
+                    as: "permissions"
+                }
+            },
+            {
+                $lookup: {
+                    from: "menus",
+                    localField: "_id",
+                    foreignField: "parent",
+                    as: "childMenu"
+                }
+            },
+            {
+                "$project": {
+                    "role": 0,
+                    "childMenu.permissions": 0,
+                    "childMenu.role": 0,
+                    "permissions._id": 0,
+                    "permissions.role": 0,
+                }
+            },
+        ])
         return response.singleData(data, 'Success', res)
     } catch (error) {
         throw Boom.boomify(error);

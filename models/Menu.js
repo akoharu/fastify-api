@@ -1,24 +1,37 @@
 'use strict';
 const mongoose_delete = require('mongoose-delete');
-
 module.exports = mongoose => {
   const newSchema = new mongoose.Schema({
-    server: {
-      type: String
-    },
     name: {
       type: String
     },
-    endpoint: {
+    url: {
       type: String
     },
-    method: {
+    icon: {
       type: String
+    },
+    isExternal: {
+      type: Boolean
+    },
+    parent: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref:'Menu'
+    },
+    order: {
+      type: Number
     },
     role: {
       type: mongoose.Schema.Types.ObjectId,
       ref:'Role'
     },
+    permissions: [
+      { type : mongoose.Schema.Types.ObjectId, ref: 'Route' }
+    ],
+    active: {
+      type: Boolean,
+      default: true
+    }
   }, {
     timestamps: {
       createdAt: 'created_at',
@@ -26,6 +39,6 @@ module.exports = mongoose => {
     }
   });
   newSchema.plugin(mongoose_delete, { deletedAt : true, deletedBy : true, overrideMethods: true});
-  const Route = mongoose.model('Route', newSchema);
-  return Route;
+  const Menu = mongoose.model('Menu', newSchema);
+  return Menu;
 };
