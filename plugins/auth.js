@@ -6,7 +6,8 @@ module.exports = fp(async function (fastify, opts, done) {
     fastify.decorate("authenticate", async function (request, reply) {
         try {
             await request.jwtVerify();            
-            let {url, method} = request;
+            let {url, method} = request.context.config;
+            console.log(url);
             // cek RBAC
             const token = request.headers.authorization.split('Bearer ')[1];
             const decodedToken = fastify.jwt.decode(token);
