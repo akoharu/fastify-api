@@ -6,7 +6,7 @@ require('dotenv').config()
 // Require the framework
 const Fastify = require('fastify')
 
-const logger = {
+let logger = {
   prettyPrint: true,
 }
 if (process.env.NODE_ENV == 'production') {
