@@ -6,11 +6,15 @@ require('dotenv').config()
 // Require the framework
 const Fastify = require('fastify')
 
+const logger = {
+  prettyPrint: true,
+}
+if (process.env.NODE_ENV == 'production') {
+  logger = false
+}
 // Instantiate Fastify with some config
 const app = Fastify({
-  logger: {
-    prettyPrint: true,
-  },
+  logger: logger,
   pluginTimeout: 10000
 })
 
