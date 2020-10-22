@@ -4,10 +4,10 @@ const Mongoose = require('mongoose');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.js')[env];
-console.log(config.database);
 if (config.database.url) {
   Mongoose.connect(config.database.url, config.database.options);
 } else {
+  console.log(`${config.database.protocol}://${config.database.username}:${config.database.password}@${config.database.host}:${config.database.port}/${config.database.name}`)  
   Mongoose.connect(`${config.database.protocol}://${config.database.username}:${config.database.password}@${config.database.host}:${config.database.port}/${config.database.name}`, config.database.options);
 }
 
