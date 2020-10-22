@@ -88,7 +88,7 @@ const create = async (req, res, collection) => {
 const update = async (req, res, collection) => {
     const id = req.params;
     try {
-        let newData = await model[collection].findOneAndUpdate(id, req.body, {upsert: true});
+        let newData = await model[collection].findOneAndUpdate(id, req.body, {upsert: true, new: true});
         return response.singleData(newData, 'Success', res);   
     } catch (error) {
         throw Boom.boomify(error);
@@ -99,8 +99,9 @@ const destroy = async (req, res, collection) => {
     const id = req.params;
     const user = req.state.user;
     try {
-        let data = await model[collection].delete(id, user._id);
-        return response.singleData(data, 'Success', res)
+        await model[collection].delete(id, user._id);
+        let deletedData = await model[collection].findOneDeleted(id);
+        return response.singleData(deletedData, 'Success', res)
     } catch (error) {
         throw Boom.boomify(error);
     }
@@ -108,8 +109,9 @@ const destroy = async (req, res, collection) => {
 const restore = async (req, res, collection) => {
     const id = req.params;
     try {
-        let data = await model[collection].restore(id);
-        return response.singleData(data, 'Success', res)
+        await model[collection].restore(id);
+        let restoredData = await model[collection].findOne(id);
+        return response.singleData(restoredData, 'Success', res)
     } catch (error) {
         throw Boom.boomify(error);
     }

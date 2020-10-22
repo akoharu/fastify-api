@@ -50,12 +50,12 @@ const update = async (req, res) => {
                 bcrypt.hash(req.body.password, salt, null, async (err, hash) => {
                   if (err) { throw Boom.boomify(err)}
                   req.body.password = hash;
-                  newData = await _model.findOneAndUpdate(id, req.body, {upsert: true});
+                  newData = await _model.findOneAndUpdate(id, req.body, {upsert: true, new: true});
                   return response.singleData(newData, 'Success', res);     
                 });
               });            
         } else {
-            newData = await _model.findOneAndUpdate(id, req.body, {upsert: true});
+            newData = await _model.findOneAndUpdate(id, req.body, {upsert: true, new: true});
             return response.singleData(newData, 'Success', res);     
         }
     } catch (error) {
