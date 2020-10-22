@@ -59,3 +59,5 @@ profile*
 
 # generated code
 dist
+
+.env
