@@ -44,7 +44,18 @@ module.exports = async function (fastify, opts) {
 
   // It exposes rbac to fastify instance fastify.rbac which you may use to check/add/remove roles and permissions.
   fastify.register(rbacPlugin, {roles: basicRules});
-
+  fastify.register(require('fastify-swagger'), {
+    swagger: {
+      info: {
+        title: 'AUTH API',
+        description: 'Auth API documentation API',
+        version: '0.1.0'
+      }
+    },
+    exposeRoute: true,
+    routePrefix: '/documentations'
+  });
+  
   // This loads all plugins defined in routes
   // define your routes in one of these
   fastify.register(AutoLoad, {
