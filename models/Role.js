@@ -3,10 +3,12 @@ const mongoose_delete = require('mongoose-delete');
 module.exports = mongoose => {
   const newSchema = new mongoose.Schema({
     name: {
-      type: String
+      type: String,
+      required: true
     },
     type: {
-      type: String
+      type: String,
+      required: true
     },
     description: {
       type: String

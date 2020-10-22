@@ -1,15 +1,10 @@
 const auth = require('../../../controller/authController');
 const response = require('../../../config/response');
 const authSchema = require('../../../schemas/login.schema');
-const registerSchema = require('../../../schemas/register.schema');
+const userSchema = require('../../../schemas/user.schema');
 
 module.exports = async function (fastify, opts) {
-  fastify.post('/register',{schema: registerSchema.schema}, auth.signup);
+  fastify.post('/register',{schema: userSchema.create}, auth.signup);
   fastify.post('/login', {schema: authSchema.schema}, auth.login);
-
-  fastify.get('/', {preValidation : [fastify.authenticate]}, (req, res) => {
-    return response.singleData({
-      status: 'Authenticated'
-    }, 'Authenticated user', res)
-  })
+  fastify.get('/me', {preValidation : [fastify.authenticate]}, auth.me)
 }

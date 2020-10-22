@@ -3,30 +3,37 @@ const mongoose_delete = require('mongoose-delete');
 module.exports = mongoose => {
   const newSchema = new mongoose.Schema({
     name: {
-      type: String
+      type: String,
+      required: true
     },
     url: {
-      type: String
+      type: String,
+      required: true
     },
     icon: {
-      type: String
+      type: String,
+      required: true
     },
     isExternal: {
-      type: Boolean
+      type: Boolean,
+      required: true
     },
     parent: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:'Menu'
+      ref:'Menu',
     },
     order: {
-      type: Number
+      type: Number,
+      required: true
     },
     role: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:'Role'
+      ref:'Role',
+      required: true
     },
     permissions: [
-      { type : mongoose.Schema.Types.ObjectId, ref: 'Route' }
+      { type : mongoose.Schema.Types.ObjectId, ref: 'Route',
+    required: true }
     ],
     active: {
       type: Boolean,

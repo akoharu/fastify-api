@@ -4,13 +4,16 @@ const mongoose_delete = require('mongoose-delete');
 module.exports = mongoose => {
   const newSchema = new mongoose.Schema({
     name: {
-      type: String
+      type: String,
+      required: true
     },
     phone: {
-      type: String
+      type: String,
+      required: true
     },
     address: {
-      type: String
+      type: String,
+      required: true
     }
   }, {
     timestamps: {

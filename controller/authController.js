@@ -39,7 +39,18 @@ const login = async (req, res) => {
         throw Boom.boomify(err);        
     }
 };
+
+const me = async (req, res) => {
+    const id = req.state.user;
+    try {
+        let data = await model.findOne(id).select('-password').populate([{ path: 'role', select: 'type name -_id' }]);
+        return response.singleData(data, 'Success', res)
+    } catch (error) {
+        throw Boom.boomify(error);
+    }    
+}
 module.exports = {
     signup,
-    login
+    login,
+    me
 }

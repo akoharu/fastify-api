@@ -6,24 +6,30 @@ module.exports = mongoose => {
   const newSchema = new mongoose.Schema({
     firstName: {
       type: String,
+      required: true
     },
     lastName: {
       type: String,
+      required: true
     },
     username: {
       type: String,
-      unique: true
+      unique: true,
+      required: true
     },
     email: {
       type: String,
-      unique: true
+      unique: true,
+      required: true
     },
     password: {
-      type: String
+      type: String,
+      required: true
     },
     role: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:'Role'
+      ref:'Role',
+      required: true
     },
     status: {
       type: String,
@@ -35,9 +41,11 @@ module.exports = mongoose => {
     },
     timezone: {
       type: String,
+      required: true
     },
     language: {
-      type: String
+      type: String,
+      required: true
     }
   }, {
     timestamps: {

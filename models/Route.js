@@ -4,16 +4,20 @@ const mongoose_delete = require('mongoose-delete');
 module.exports = mongoose => {
   const newSchema = new mongoose.Schema({
     server: {
-      type: String
+      type: String,
+      required: true
     },
     name: {
-      type: String
+      type: String,
+      required: true
     },
     endpoint: {
-      type: String
+      type: String,
+      required: true
     },
     method: {
-      type: String
+      type: String,
+      required: true
     },
     role: {
       type: mongoose.Schema.Types.ObjectId,
