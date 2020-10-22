@@ -6,5 +6,5 @@ const userSchema = require('../../../schemas/user.schema');
 module.exports = async function (fastify, opts) {
   fastify.post('/register',{schema: userSchema.create}, auth.signup);
   fastify.post('/login', {schema: authSchema.schema}, auth.login);
-  fastify.get('/me', {preValidation : [fastify.authenticate]}, auth.me)
+  fastify.get('/me', {schema: {tags: ['User']}, preValidation : [fastify.authenticate]}, auth.me)
 }

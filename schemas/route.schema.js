@@ -1,3 +1,4 @@
+const tags = ['Route'];
 const bodyJsonSchema = {
   type: 'object',
   properties: {
@@ -43,22 +44,26 @@ const paramsJsonSchema = {
 }
 // const headersJsonSchema
 const find = {
+    tags: tags,
     querystring: queryStringJsonSchema,
 
     // headers: headersJsonSchema
 }
 const findOne = {
+    tags: tags,
     params: paramsJsonSchema,
 
     // headers: headersJsonSchema
 }
 const create = {
+    tags: tags,
     body: bodyJsonSchema,
 
     // headers: headersJsonSchema
 }
 
 const update = {
+    tags: tags,
     body: bodyJsonSchema,
 
     params: paramsJsonSchema,
@@ -67,6 +72,7 @@ const update = {
 }
 
 const destroy = {
+    tags: tags,
 
     params: paramsJsonSchema,
 

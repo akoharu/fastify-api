@@ -51,6 +51,13 @@ module.exports = async function (fastify, opts) {
         description: 'Auth API documentation API',
         version: '0.1.0'
       },
+      tags: [
+        { name: 'Company', description: 'Company related end-points' },
+        { name: 'User', description: 'User related end-points' },,
+        { name: 'Role', description: 'Role related end-points' },
+        { name: 'Menu', description: 'Menu related end-points' },
+        { name: 'Route', description: 'Route related end-points' }
+      ],  
       securityDefinitions: {
         apiKey: {
           type: 'apiKey',

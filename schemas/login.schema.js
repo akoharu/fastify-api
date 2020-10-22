@@ -1,3 +1,5 @@
+const tags = ['User'];
+
 const bodyJsonSchema = {
     type: 'object',
     required: ['username', 'password'],
@@ -12,6 +14,8 @@ const bodyJsonSchema = {
 }
 
 const schema = {
+    tags: tags,
+
     body: bodyJsonSchema,
 
     // querystring: queryStringJsonSchema,
