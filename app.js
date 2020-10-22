@@ -21,7 +21,7 @@ module.exports = async function (fastify, opts) {
     options: Object.assign({}, opts)
   })
 
-  let basicRules = await permissionRuleServie.permissionRules(`?server=${process.env.SERVER}`);
+  let basicRules = await permissionRuleServie.permissionRules(``);
   // const basicRules = {
   //   user: {
   //     can: [
@@ -50,8 +50,20 @@ module.exports = async function (fastify, opts) {
         title: 'AUTH API',
         description: 'Auth API documentation API',
         version: '0.1.0'
-      }
-    },
+      },
+      securityDefinitions: {
+        apiKey: {
+          type: 'apiKey',
+          name: 'Authorization',
+          in: 'header'
+        }
+      },
+      security: [
+        {
+          "apiKey": []
+        }
+      ]
+    },  
     exposeRoute: true,
     routePrefix: '/documentations'
   });
