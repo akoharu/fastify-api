@@ -19,6 +19,7 @@ const app = Fastify({
 })
 
 // Register your application as a normal plugin.
+app.register(require('fastify-cors'), { origin: '*' });
 app.register(require('./app.js'))
 
 // Start listening.

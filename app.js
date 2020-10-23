@@ -6,8 +6,7 @@ const fastifyJWT = require('fastify-jwt');
 const rbacPlugin = require('fastify-rbac');
 const permissionRuleServie = require('./services/routeService');
 
-module.exports = async function (fastify, opts) {
-  // Place here your custom code!
+module.exports = async function (fastify, opts) {  
   fastify.register(fastifyJWT, {
     secret: process.env.JWT_SECRET
   });
