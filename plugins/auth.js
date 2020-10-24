@@ -7,7 +7,6 @@ module.exports = fp(async function (fastify, opts, done) {
         try {
             await request.jwtVerify();            
             let {url, method} = request.context.config;
-            console.log(url);
             // cek RBAC
             const token = request.headers.authorization.split('Bearer ')[1];
             const decodedToken = fastify.jwt.decode(token);
@@ -24,6 +23,7 @@ module.exports = fp(async function (fastify, opts, done) {
                 reply.code(403);
                 throw Boom.forbidden(`You can't do this`);
             }
+            request.rbac = fastify.rbac
         } catch (err) {
             throw Boom.boomify(err, {statusCode: 403});
         }

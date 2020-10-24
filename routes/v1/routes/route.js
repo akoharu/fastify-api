@@ -12,4 +12,5 @@ module.exports = async function (fastify, opts) {
     fastify.get('/deleted', {schema: schema.find, preValidation : [fastify.authenticate]}, controller.findDeleted);
     fastify.get('/count-deleted', {schema: schema.find, preValidation : [fastify.authenticate]}, controller.countDeleted);
     fastify.get('/permissions', {schema: schema.find, preValidation : [fastify.authenticate]}, controller.permissionRules);
+    fastify.post('/check-permissions', {schema: schema.checkPermissions, preValidation : [fastify.authenticate]}, controller.checkPermissions);
 }

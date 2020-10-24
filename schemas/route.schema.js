@@ -78,7 +78,19 @@ const destroy = {
 
     // headers: headersJsonSchema
 }
+const checkPermissions = {
+  tags: tags,
+  body: {
+    type: 'object',
+    properties: {
+      endpoint: { type: 'string' },
+      method: { type: 'string' },
+    },
+    required: [ 'endpoint', 'method' ]
+  },
 
+  // headers: headersJsonSchema
+}
 module.exports = {
-    find, findOne, create, update, destroy
+    find, findOne, create, update, destroy, checkPermissions
 }

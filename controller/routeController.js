@@ -3,7 +3,6 @@ const crud = require('../services/crudService');
 const permissionRuleServie = require('../services/routeService');
 const Boom = require('boom');
 const response = require('../config/response');
-
 const find = async (req, res) => {
     return crud.find(req, res, model);
 }
@@ -44,6 +43,18 @@ const permissionRules = async(req, res) => {
     }
 }
 
+const checkPermissions = async(req, res) => {
+    try {
+        let {url, method} = req.context.config;
+        const user = req.state.user;
+        console.log(user.role.type, url.split('?')[0], method);
+        let checkRBAC = req.rbac.can(user.role.type, url.split('?')[0], method);
+        return response.singleData(checkRBAC, 'Success', res);
+    } catch (error) {
+        throw Boom.boomify(error);
+    }
+}
+
 module.exports = {
-    find, findOne, create, update, destroy, findDeleted, count, countDeleted, restore, permissionRules
+    find, findOne, create, update, destroy, findDeleted, count, countDeleted, restore, permissionRules, checkPermissions
 }
