@@ -45,10 +45,9 @@ const permissionRules = async(req, res) => {
 
 const checkPermissions = async(req, res) => {
     try {
-        let {url, method} = req.context.config;
+        const {endpoint, method} = req.body;
         const user = req.state.user;
-        console.log(user.role.type, url.split('?')[0], method);
-        let checkRBAC = req.rbac.can(user.role.type, url.split('?')[0], method);
+        let checkRBAC = req.rbac.can(user.role.type, endpoint, method);
         return response.singleData(checkRBAC, 'Success', res);
     } catch (error) {
         throw Boom.boomify(error);
