@@ -19,7 +19,8 @@ module.exports = mongoose => {
       required: true
     },
     parent: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
+      default: undefined,
       ref:'Menu',
     },
     order: {

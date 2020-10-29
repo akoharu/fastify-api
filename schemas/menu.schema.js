@@ -11,7 +11,6 @@ const bodyJsonSchema = {
         'x-ref': 'Menu',
         default: null,
         description: 'Refers to Menu',
-        pattern: '^[0-9a-fA-F]{24}$'
       },
       order: { type: 'number' },
       role: {
@@ -50,7 +49,6 @@ const queryStringJsonSchema = {
         'x-ref': 'Menu',
         default: null,
         description: 'Refers to Menu',
-        pattern: '^[0-9a-fA-F]{24}$'
       },
       order: { type: 'number' },
       role: {
@@ -67,7 +65,7 @@ const queryStringJsonSchema = {
           description: 'Refers to Route',
           pattern: '^[0-9a-fA-F]{24}$'
         },
-        minItems: 1
+        minItems: 0
       },
       active: { type: 'boolean', default: true },
     },

@@ -20,8 +20,8 @@ const find = async (req, res) => {
         let data = await _model.aggregate([
             {
                 $match: {...filter,
-                    parent: null,
-                    role: user.role._id
+                    role: user.role._id,
+                    $or: [{parent: null}, {parent: ''}]
                 }
             },
             {
