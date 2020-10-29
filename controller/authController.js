@@ -1,5 +1,5 @@
 const model = require('../models').models.User;
-const Boom = require('boom');
+const Boom = require('@hapi/boom');
 let response = require('../config/response');
 
 const signup = async (req, res) => {

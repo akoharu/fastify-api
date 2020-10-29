@@ -1,5 +1,5 @@
 const model = require('../models').models;
-const Boom = require('boom');
+const Boom = require('@hapi/boom');
 const response = require('../config/response');
 const {MongooseQueryParser} = require('mongoose-query-parser');
 const parser = new MongooseQueryParser();

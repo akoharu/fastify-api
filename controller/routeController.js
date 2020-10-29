@@ -1,7 +1,7 @@
 const model = 'Route';
 const crud = require('../services/crudService');
 const permissionRuleServie = require('../services/routeService');
-const Boom = require('boom');
+const Boom = require('@hapi/boom');
 const response = require('../config/response');
 const find = async (req, res) => {
     return crud.find(req, res, model);

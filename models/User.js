@@ -1,5 +1,5 @@
 'use strict';
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
 const mongoose_delete = require('mongoose-delete');
 
 module.exports = mongoose => {

@@ -1,5 +1,5 @@
 const _model = require('../models').models.Menu;
-const Boom = require('boom');
+const Boom = require('@hapi/boom');
 const response = require('../config/response');
 const {MongooseQueryParser} = require('mongoose-query-parser');
 const parser = new MongooseQueryParser();
@@ -49,6 +49,7 @@ const find = async (req, res) => {
                     "permissions.role": 0,
                 }
             },
+            {$sort: {order: 1}}
         ])
         return response.singleData(data, 'Success', res)
     } catch (error) {

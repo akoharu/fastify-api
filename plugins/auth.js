@@ -1,5 +1,5 @@
 const fp = require("fastify-plugin");
-const Boom = require('boom');
+const Boom = require('@hapi/boom');
 const model = require('../models').models.User;
 
 module.exports = fp(async function (fastify, opts, done) {

@@ -1,9 +1,9 @@
 const _model = require('../models').models.User;
-const Boom = require('boom');
+const Boom = require('@hapi/boom');
 let response = require('../config/response');
 const {MongooseQueryParser} = require('mongoose-query-parser');
 const parser = new MongooseQueryParser();
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
 const model = 'User';
 const crud = require('../services/crudService');
 const find = async (req, res) => {

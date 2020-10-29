@@ -99,7 +99,11 @@ const create = {
 
 const update = {
     tags: tags,
-    body: bodyJsonSchema,
+    body: {
+      type: bodyJsonSchema.type,
+      properties: bodyJsonSchema.properties,
+      required: []
+    },
 
     params: paramsJsonSchema,
 
