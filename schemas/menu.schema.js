@@ -28,7 +28,7 @@ const bodyJsonSchema = {
           description: 'Refers to Route',
           pattern: '^[0-9a-fA-F]{24}$'
         },
-        minItems: 1
+        minItems: 0
       },
       active: { type: 'boolean', default: true },
     },
