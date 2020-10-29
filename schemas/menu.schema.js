@@ -6,18 +6,16 @@ const bodyJsonSchema = {
       url: { type: 'string' },
       icon: { type: 'string' },
       isExternal: { type: 'boolean' },
-      parent: {
-        type: [ 'string'],
-        'x-ref': 'Menu',
-        default: null,
-        description: 'Refers to Menu',
-      },
       order: { type: 'number' },
       role: {
-        type: 'string',
-        'x-ref': 'Role',
-        description: 'Refers to Role',
-        pattern: '^[0-9a-fA-F]{24}$'
+        type: 'array',
+        items: {
+          type: 'string',
+          'x-ref': 'Role',
+          description: 'Refers to Role',
+          pattern: '^[0-9a-fA-F]{24}$'
+        },
+        minItems: 0
       },
       permissions: {
         type: 'array',

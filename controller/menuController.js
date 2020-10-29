@@ -35,8 +35,22 @@ const find = async (req, res) => {
             {
                 $lookup: {
                     from: "menus",
-                    localField: "_id",
-                    foreignField: "parent",
+                    // localField: "_id",
+                    // foreignField: "parent",
+                    let: { menu_id: "$_id"},
+                    pipeline: [
+                         { $match:
+                             { $expr:
+                                 { $and:
+                                     [
+                                        { $in: [ user.role._id, "$role"] },
+                                        { $eq: ["$$menu_id", "$parent" ] }
+                                     ]
+                                 }
+                             }
+                         }
+                     ],
+                          
                     as: "childMenu"
                 }
             },
