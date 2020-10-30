@@ -51,7 +51,7 @@ module.exports = async function (fastify, opts) {
         version: '0.1.0'
       },
       tags: [
-        { name: 'Company', description: 'Company related end-points' },
+        { name: 'Company', description: 'Company end-points' },
         { name: 'User', description: 'User related end-points' },,
         { name: 'Role', description: 'Role related end-points' },
         { name: 'Menu', description: 'Menu related end-points' },
