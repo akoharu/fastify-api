@@ -3,7 +3,8 @@ const schema = require('../../../schemas/menu.schema');
 
 module.exports = async function (fastify, opts) {
     fastify.post('/', {schema: schema.create, preValidation : [fastify.authenticate]}, controller.create);
-    fastify.get('/', {schema: schema.find, preValidation : [fastify.authenticate]}, controller.find);
+    fastify.get('/', {schema: schema.find, preValidation : [fastify.authenticate]}, controller.autMenu);
+    fastify.get('/setting', {schema: schema.find, preValidation : [fastify.authenticate]}, controller.find);
     fastify.get('/:_id', {schema: schema.findOne, preValidation : [fastify.authenticate]}, controller.findOne);
     fastify.put('/:_id', {schema: schema.update, preValidation : [fastify.authenticate]}, controller.update);
     fastify.delete('/:_id', {schema: schema.findOne, preValidation : [fastify.authenticate]}, controller.destroy);
